@@ -3,6 +3,7 @@ import {Button, Navbar, Container, Nav} from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
 import data from './data.js';
+import { Routes, Route, Link } from 'react-router-dom' 
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
   console.log(shoes[0].price);
   return (
     <div className="App">
+
         <Navbar bg="light" variant="light">
         <Container>
           <Navbar.Brand href="#home">ShopShop</Navbar.Brand>
@@ -20,21 +22,32 @@ function App() {
         </Container>
       </Navbar>
 
-      <div className="main-bg" /*style={{backgroundImage : 'url('+ bg +')'}}*/></div>
-      <div className='container'>
-        <div className='row'>
-          {/* <Card shoes={shoes[0]} i={1}></Card>
-          <Card shoes={shoes[1]} i={2}></Card>
-          <Card shoes={shoes[2]} i={3}></Card> */}
-          {
-            shoes.map((a, i)=> {
-              return (
-                <Card shoes={shoes[i]} i={i}></Card>
-              )
-            })
-          }
-        </div>
-      </div>
+      <Link to="/">홈</Link>
+      <Link to="/detail">상세페이지</Link>
+
+      <Routes>
+        <Route path="/" element={
+          <>
+                <div className="main-bg" /*style={{backgroundImage : 'url('+ bg +')'}}*/></div>
+                <div className='container'>
+                  <div className='row'>
+                    {/* <Card shoes={shoes[0]} i={1}></Card>
+                    <Card shoes={shoes[1]} i={2}></Card>
+                    <Card shoes={shoes[2]} i={3}></Card> */}
+                    {
+                      shoes.map((a, i)=> {
+                        return (
+                          <Card shoes={shoes[i]} i={i}></Card>
+                        )
+                      })
+                    }
+                  </div>
+                </div>
+          </>      
+        }/>
+        <Route path="/detail" element={<div>상세페이지임</div>}/>
+      </Routes>
+
     </div>
   );
 }
