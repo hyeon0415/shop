@@ -1,6 +1,8 @@
+/* eslint-disable */
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
+
 
 
 // css 파일 안가도됨
@@ -17,26 +19,33 @@ let Box = styled.div`
 
 
 function Detail(props){
-    
+    // 유저가 :id에 파라미터 입력한 겂을 가져옴
+    let {id} = useParams();
+    let [count, setCount] = useState(0);
+    let [alert, setAlert] = useState(true);
     // html 렌더링 후에 동작
     // 어려운 연산작업들, 서버에서 데이터 가져오는 작업, 타이머 장착하는거
     useEffect(()=>{
-        // for (var i = 0; i < 10000; i++){
-        //     console.log(i);
-        // }   
-    })
+        let a = setTimeout(()=>{ setAlert(false) }, 2000)
+        console.log(2)
+        // useEffect 실행되기 전 
+        return ()=>{
+           // 기존 데이터(타이머 등) 제거해주세요~
+           console.log(1)
+           clearTimeout(a)
+        }
+    }, []) // [count]라는 state가 변할 때만 실행됨, []는 mount시 1회 코드실행
 
-    setTimeout(()=>{ }, 2);
-   
-
-    let [count, setCount] = useState(0);
-    // 유저가 :id에 파라미터 입력한 겂을 가져옴
-    let {id} = useParams();
     return (
         <div className="container">
-            <div className="alert alert-warning">
-                2초이내 구매시 할인
-            </div>
+            {
+                alert == true 
+                ? <div className="alert alert-warning">
+                    2초이내 구매시 할인
+                  </div>
+                  : null
+            }
+
             {count}
             <button onClick={()=> { setCount(count+1) }}>버튼</button>
             <YellowBtn bg="blue">버튼</YellowBtn>
