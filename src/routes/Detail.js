@@ -2,7 +2,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
-
+import { Nav } from 'react-bootstrap';
 
 
 // css 파일 안가도됨
@@ -23,6 +23,7 @@ function Detail(props){
     let {id} = useParams();
     let [count, setCount] = useState(0);
     let [alert, setAlert] = useState(true);
+    let [탭, 탭변경] = useState(0);
     // html 렌더링 후에 동작
     // 어려운 연산작업들, 서버에서 데이터 가져오는 작업, 타이머 장착하는거
     useEffect(()=>{
@@ -61,8 +62,33 @@ function Detail(props){
                     <button className="btn btn-danger">주문하기</button> 
                 </div>
             </div>
+            <Nav variant="tabs"  defaultActiveKey="link0">
+                <Nav.Item>
+                <Nav.Link onClick={()=>{ 탭변경(0) }} eventKey="link0">버튼0</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link onClick={()=>{ 탭변경(1) }}eventKey="link1">버튼1</Nav.Link>
+            </Nav.Item>
+            <Nav.Item>
+                <Nav.Link onClick={()=>{ 탭변경(2) }}eventKey="link2">버튼2</Nav.Link>
+            </Nav.Item>
+            </Nav>   
+
+            <TabContent 탭={탭}/>         
         </div> 
     )
+}
+function TabContent({탭}){
+    // if(탭 == 0){
+    //     return <div>내용0</div>
+    // }
+    // if(탭 == 1){
+    //     return <div>내용1</div>
+    // }
+    // if(탭 == 2){
+    //     return <div>내용2</div>
+    // }
+    return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭]
 }
 
 
