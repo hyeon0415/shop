@@ -88,7 +88,20 @@ function TabContent({탭}){
     // if(탭 == 2){
     //     return <div>내용2</div>
     // }
-    return [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭]
+    // 탭 변경될때마다 안의 코드 실행
+
+    let [fade, setFade] = useState('')
+    useEffect(()=>{
+        setTimeout(()=>{ setFade('end') }, 100)
+
+        // return 가장 먼저
+        return ()=>{
+            setFade(' ')
+        }
+    }, [탭])
+    return (<div className={'start ' + fade}>
+        { [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭] }
+    </div>)
 }
 
 
