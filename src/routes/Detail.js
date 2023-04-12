@@ -1,8 +1,10 @@
 /* eslint-disable */
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
+
+import { Context1 } from './../App.js'
 
 
 // css 파일 안가도됨
@@ -19,6 +21,8 @@ let Box = styled.div`
 
 
 function Detail(props){
+    let {재고} = useContext(Context1) // 보관함 해채해줌
+
     // 유저가 :id에 파라미터 입력한 겂을 가져옴
     let {id} = useParams();
     let [count, setCount] = useState(0);
@@ -91,8 +95,9 @@ function TabContent({탭}){
     // 탭 변경될때마다 안의 코드 실행
 
     let [fade, setFade] = useState('')
+    let {재고} = useContext(Context1)
     useEffect(()=>{
-        setTimeout(()=>{ setFade('end') }, 100)
+        let a = setTimeout(()=>{ setFade('end') }, 100)
 
         // return 가장 먼저
         return ()=>{
@@ -100,7 +105,7 @@ function TabContent({탭}){
         }
     }, [탭])
     return (<div className={'start ' + fade}>
-        { [<div>내용0</div>,<div>내용1</div>,<div>내용2</div>][탭] }
+        { [<div>{재고}</div>,<div>내용1</div>,<div>내용2</div>][탭] }
     </div>)
 }
 
