@@ -11,3 +11,4 @@
 redux -> 컴포넌트들이 props 없이 state 공유가능
 src 안에 store.js 만들기 (state들을 보관하는 파일)
 index.js 가서 <Provier store={store}> -> <App>이라는 컴포넌트, 그 모든 자식들은 store.js 안에 있는 state 사용 가능
+컴포넌트 공유 필요 없으면 useState 쓰기
