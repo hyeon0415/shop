@@ -4,7 +4,10 @@ import { useParams } from "react-router-dom";
 import styled from 'styled-components';
 import { Nav } from 'react-bootstrap';
 
+
 import { Context1 } from './../App.js'
+import { addItem } from "../store.js";
+import { useDispatch } from "react-redux";
 
 
 // css 파일 안가도됨
@@ -28,6 +31,7 @@ function Detail(props){
     let [count, setCount] = useState(0);
     let [alert, setAlert] = useState(true);
     let [탭, 탭변경] = useState(0);
+    let dispatch = useDispatch()
     // html 렌더링 후에 동작
     // 어려운 연산작업들, 서버에서 데이터 가져오는 작업, 타이머 장착하는거
     useEffect(()=>{
@@ -63,7 +67,9 @@ function Detail(props){
                     <h4 className="pt-5">{props.shoes[id].title}</h4>
                     <p>{props.shoes[id].content}</p>
                     <p>{props.shoes[id].price}원</p>
-                    <button className="btn btn-danger">주문하기</button> 
+                    <button className="btn btn-danger" onClick={()=>{
+                        dispatch(addItem( {id : 1, name : 'Red Knit', count : 1} ))
+                    }}>주문하기</button> 
                 </div>
             </div>
             <Nav variant="tabs"  defaultActiveKey="link0">
