@@ -1,4 +1,4 @@
-import { createContext, useState } from 'react';
+import { createContext, useEffect, useState } from 'react';
 import {Button, Navbar, Container, Nav} from 'react-bootstrap';
 import './App.css';
 import bg from './img/bg.png';
@@ -18,6 +18,10 @@ function App() {
   let 꺼낸거 = localStorage.getItem('data')
   
   console.log(JSON.parse(꺼낸거).name);
+
+  useEffect(()=>{
+    localStorage.setItem('watched', JSON.stringify( [] ))
+  })
 
   let [shoes, setShoes] = useState(data)
   let [재고] = useState([10, 11, 12])

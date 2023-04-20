@@ -28,10 +28,23 @@ function Detail(props){
 
     // 유저가 :id에 파라미터 입력한 겂을 가져옴
     let {id} = useParams();
+    let 찾은상품 = props.shoes.find(x => x.id == id)
     let [count, setCount] = useState(0);
     let [alert, setAlert] = useState(true);
     let [탭, 탭변경] = useState(0);
     let dispatch = useDispatch()
+
+
+
+    useEffect(()=>{
+        let 꺼낸거 = localStorage.getItem('watched')
+        꺼낸거 = JSON.parse(꺼낸거)
+        꺼낸거.push(찾은상품.id)
+        꺼낸거 = new Set(꺼낸거)
+        꺼낸거 = Array.from(꺼낸거)
+        localStorage.setItem('watched', JSON.stringify(꺼낸거))
+    }, [])
+
     // html 렌더링 후에 동작
     // 어려운 연산작업들, 서버에서 데이터 가져오는 작업, 타이머 장착하는거
     useEffect(()=>{
