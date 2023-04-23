@@ -7,6 +7,7 @@ import { Routes, Route, Link, useNavigate, Outlet } from 'react-router-dom';
 import Detail from './routes/Detail';
 import Cart from './routes/Cart';
 import axios from 'axios'
+import { useQueries, useQuery } from 'react-query';
 
 export let Context1 = createContext()
 
@@ -27,6 +28,29 @@ function App() {
   let [재고] = useState([10, 11, 12])
   let navigate = useNavigate(); // 페이지 이동을 도와주는 함수
 
+  // ajax 요청
+  //  axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+  //    a.빈값
+  //  })
+
+  let result = useQuery('작명', ()=>
+    axios.get('https://codingapple1.github.io/userdata.json').then((a)=>{
+      return a.data
+    }) 
+  )
+  useEffect(()=>{
+    console.log('result',result.data);
+
+  })
+  
+  // return (
+  //   <div>
+  //   {result.data}
+  //   {result.isLoading}
+  //   {result.arror}
+  //   </div>
+  // )
+
   
   return (
     <div className="App">
@@ -43,7 +67,9 @@ function App() {
 
       {/* <Link to="/">홈</Link> */}
       {/* <Link to="/detail">상세페이지</Link> */}
-
+      {result.data && result.data.name}
+      {result.isLoading && '로딩중'}
+      {result.error && '에러남'}
       <Routes>
         <Route path="/" element={
           <>
